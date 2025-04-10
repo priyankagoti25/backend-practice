@@ -5,28 +5,35 @@ import jwt from "jsonwebtoken"
 const userSchema = new Schema({
     username: {
         type: String,
-        required: true,
+        required: [true, 'username is required'],
         unique: true,
         lowercase: true,
+        minlength:[6,'minimum 6 characters are required'],
         trim: true,
         index: true
     },
     email: {
         type: String,
-        required: true,
-        unique: true,
+        required: [true, 'email is required'],
+        unique: [true, 'email already exists'],
         lowercase: true,
         trim: true,
+        validate: {
+            validator: function (value) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+            },
+            message: "Invalid email"
+        }
     },
     fullName: {
         type: String,
-        required: true,
+        required: [true, 'fullName is required'],
         trim: true,
         index: true
     },
     avatar: {
         type: String, // cloudinary
-        required: true,
+        required: [true, 'avatar is required'],
     },
     coverImage: {
         type: String, // cloudinary
@@ -39,6 +46,7 @@ const userSchema = new Schema({
     ],
     password: {
         type: String,
+        minlength:[6,'minimum 6 characters are required'],
         required: [true, "Password is required"]
     },
     refreshToken: {
