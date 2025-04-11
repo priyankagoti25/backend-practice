@@ -18,7 +18,7 @@ const registerUser = asyncHandler(async (req, res)=>{
         username: req.body.username?.toLowerCase(),
         email: req.body.email?.toLowerCase(),
         avatar: avatar?.url,
-        coverImage: coverImage?.url
+        coverImage: coverImage?.url || ""
     }
     const user = new User(payload)
     const validationError = user.validateSync()
