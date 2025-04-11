@@ -3,18 +3,27 @@ import connectDB from "./db/index.js";
 import {PORT} from "./constants.js";
 import {app} from "./app.js";
 
-dotenv.config({path: './env'})
+dotenv.config({path: './.env'})
 
-connectDB()
-    .then(()=>{
-        app.listen(PORT,()=>{
-            console.log(`Server is running on http://localhost:${PORT}`)
-        })
-    })
-    .catch((err)=>{
-        console.log("MongoDB connection Failed ", err)
-    })
+// connectDB()
+//     .then(async ()=>{
+//         await app.listen(PORT,()=>{
+//             console.log(`Server is running on http://localhost:${PORT}`)
+//         })
+//     })
+//     .catch((err)=>{
+//         console.log("MongoDB connection Failed ", err)
+//     })
 
+const startServer = async () => {
+    await connectDB();
+
+    app.listen(process.env.PORT, () => {
+        console.log(`🚀 Server running at http://localhost:${process.env.PORT}`);
+    });
+};
+
+await startServer();
 
 
 

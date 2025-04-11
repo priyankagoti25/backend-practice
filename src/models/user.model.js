@@ -6,7 +6,7 @@ const userSchema = new Schema({
     username: {
         type: String,
         required: [true, 'username is required'],
-        unique: true,
+        unique: [true, 'username already exists'],
         lowercase: true,
         minlength:[6,'minimum 6 characters are required'],
         trim: true,
@@ -57,7 +57,7 @@ const userSchema = new Schema({
 
 userSchema.pre("save", async function (next){
     if(!this.isModified("password")) return next()
-    this.password = await bcrypt(this.password, 10)
+    this.password = await bcrypt.hash(this.password, 10)
     next()
 })
 
