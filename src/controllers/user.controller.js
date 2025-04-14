@@ -93,7 +93,7 @@ const logoutUser = asyncHandler(async (req, res)=>{
     const user =  await User.findByIdAndUpdate(
         req?.user?._id,
         {
-            $set: { refreshToken: undefined}
+            $unset: { refreshToken: 1}
         },
         {
             new: true
@@ -327,6 +327,16 @@ const getWatchHistory = asyncHandler(async (req, res)=>{
                         }
                     }
                 ]
+            }
+        },
+        {
+            $project: {
+                fullName: 1,
+                email: 1,
+                avatar: 1,
+                coverImage: 1,
+                watchHistory: 1,
+                createdAt: 1
             }
         }
     ])
