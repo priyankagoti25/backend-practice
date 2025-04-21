@@ -99,6 +99,7 @@ const logoutUser = asyncHandler(async (req, res)=>{
             new: true
         }
     )
+    await user.save({validateBeforeSave: false})
    const options = {
         httpOnly: true,
         secure: true
