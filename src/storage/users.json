@@ -1,0 +1,26 @@
+[
+  {
+    "email": "priyanka@gmail.com",
+    "password": "12345678",
+    "username": "priyankagoti",
+    "fullName": "Priyanka Goti",
+    "avatar": "http://res.cloudinary.com/doc5lou2u/image/upload/v1744363216/xaieylceezdlwuvxlrzk.jpg",
+    "coverImage": "http://res.cloudinary.com/doc5lou2u/image/upload/v1744363217/oyv8lk5adigsqvdto92z.jpg"
+  },
+  {
+    "email": "elsa@gmail.com",
+    "password": "12345678",
+    "username": "elsaofarendelle",
+    "fullName": "Elsa",
+    "avatar": "http://res.cloudinary.com/doc5lou2u/image/upload/v1744363216/xaieylceezdlwuvxlrzk.jpg",
+    "coverImage": "http://res.cloudinary.com/doc5lou2u/image/upload/v1744363217/oyv8lk5adigsqvdto92z.jpg"
+  },
+  {
+    "email": "anna@gmail.com",
+    "password": "12345678",
+    "username": "annaofarendelle",
+    "fullName": "Anna",
+    "avatar": "http://res.cloudinary.com/doc5lou2u/image/upload/v1744363216/xaieylceezdlwuvxlrzk.jpg",
+    "coverImage": "http://res.cloudinary.com/doc5lou2u/image/upload/v1744363217/oyv8lk5adigsqvdto92z.jpg"
+  }
+]
