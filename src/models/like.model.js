@@ -13,7 +13,15 @@ const likeSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Tweet"
     },
-    likedBy: {
+    videoLikedBy: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    },
+    commentLikedBy: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    },
+    tweetLikedBy: {
         type: Schema.Types.ObjectId,
         ref: "User"
     }
