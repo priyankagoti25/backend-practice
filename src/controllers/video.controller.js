@@ -6,7 +6,23 @@ import {ApiError} from "../utils/ApiError.js";
 import mongoose from "mongoose";
 
 const getVideosList = asyncHandler(async (req, res)=>{
-    const videos = await Video.aggregate([
+    const searchCondition = {
+        $or:[
+            {
+                title:{
+                    $regex: req.query.search,
+                    $options: 'i'
+                }
+            },
+            {
+                description:{
+                    $regex: req.query.search,
+                    $options: 'i'
+                }
+            }
+        ]
+    }
+    const pipeline = [
         {
             $lookup:{
                 from: 'users',
@@ -26,8 +42,12 @@ const getVideosList = asyncHandler(async (req, res)=>{
             $addFields:{
                 owner:{$first:'$owner'}
             }
+        },
+        {
+            $match: req.query.search ? searchCondition:{}
         }
-    ])
+    ]
+    const videos = await Video.aggregate(pipeline)
     return res.status(200).json(new ApiResponse(200,"Videos list", videos))
 })
 const uploadVideo = asyncHandler(async (req, res)=>{
