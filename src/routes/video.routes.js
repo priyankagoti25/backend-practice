@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {uploadVideo, getVideosList, increaseViews, updateVideo, publishVideo, getVideoById} from "../controllers/video.controller.js";
+import {uploadVideo, getVideosList, increaseViews, updateVideo, publishVideo, getVideoById, getVideosListByChannel} from "../controllers/video.controller.js";
 import {upload} from "../middlewares/multer.middleware.js";
 import {verifyJWT} from "../middlewares/auth.middleware.js";
 const videoRoutes = Router()
@@ -22,5 +22,6 @@ videoRoutes.route('/publish/:id').get(verifyJWT,publishVideo)
 videoRoutes.route('/list').get(getVideosList)
 videoRoutes.route('/increase-views/:id').post(increaseViews)
 videoRoutes.route('/:id').get(getVideoById)
+videoRoutes.route('/list-by-channel/:channelId').get(getVideosListByChannel)
 
 export default videoRoutes

@@ -151,4 +151,9 @@ const getVideoById = asyncHandler(async (req, res)=>{
     return res.status(200).json(new ApiResponse(200, "Video Data",video))
 })
 
-export {uploadVideo, updateVideo, getVideosList, increaseViews, publishVideo, getVideoById}
+const getVideosListByChannel = asyncHandler(async (req, res)=>{
+    const videos = await Video.find({"owner":req.params.channelId})
+    return res.status(200).json(new ApiResponse(200,"Videos list", videos))
+})
+
+export {uploadVideo, updateVideo, getVideosList, increaseViews, publishVideo, getVideoById, getVideosListByChannel}

@@ -245,25 +245,16 @@ const getUserChannelProfile = asyncHandler(async (req, res)=>{
             $lookup: {
                 from: "subscriptions",
                 localField: "_id",
-                foreignField: "channel",
-                as: "subscribers"
-            }
-        },
-        {
-            $lookup: {
-                from: "subscriptions",
-                localField: "_id",
                 foreignField: "subscriber",
                 as: "subscribedTo"
             }
         },
         {
             $addFields: {
-                subscribersCount: {$size: "$subscribers"},
                 subscribedToCount: {$size: "$subscribedTo"},
                 isSubscribed: {
                     $cond: {
-                        if: {$in: [req.user?._id,"$subscribers.subscriber"]},
+                        if: {$gt: ["$subscriberCount",0]},
                         then: true,
                         else: false
                     }
@@ -272,14 +263,10 @@ const getUserChannelProfile = asyncHandler(async (req, res)=>{
         },
         {
             $project: {
-                fullName: 1,
-                email: 1,
-                avatar: 1,
-                coverImage: 1,
-                subscribersCount: 1,
-                subscribedToCount: 1,
-                isSubscribed: 1,
-                createdAt: 1
+                password: 0,
+                refreshToken: 0,
+                subscribedTo: 0,
+                updatedAt: 0
             }
         }
     ])
@@ -288,7 +275,7 @@ const getUserChannelProfile = asyncHandler(async (req, res)=>{
         throw new ApiError(404, "Channels does not exists")
     }
 
-    return res.status(200).json(new ApiResponse(200,"Success", channel[0]))
+    return res.status(200).json(new ApiResponse(200,"Success", channels[0]))
 })
 
 const getWatchHistory = asyncHandler(async (req, res)=>{
