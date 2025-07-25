@@ -5,13 +5,14 @@ import {ApiError} from "../utils/ApiError.js";
 import {ApiResponse} from "../utils/ApiResponse.js";
 
 const subscribeChannel = asyncHandler(async (req, res)=>{
-    const existingSubscription = await Subscription.findOne({subscriber: req.user._id, channel: req.params.channelId})
-    if(existingSubscription) {
-        throw new ApiError(400, "You have already subscribed this channel")
-    }
     const channel = await User.findById(req.params.channelId)
     if(!channel){
         throw new ApiError(400, "This channel is not available")
+    }
+
+    const existingSubscription = await Subscription.findOne({subscriber: req.user._id, channel: req.params.channelId})
+    if(existingSubscription) {
+        throw new ApiError(400, "You have already subscribed this channel")
     }
 
     const payload = {
@@ -30,4 +31,28 @@ const subscribeChannel = asyncHandler(async (req, res)=>{
     return res.status(201).json(new ApiResponse(201, "Subscribed successfully", createdSubscription))
 })
 
-export {subscribeChannel}
+const unsubscribeChannel = asyncHandler(async (req, res)=>{
+    const channel = await User.findById(req.params.channelId)
+    if(!channel){
+        throw new ApiError(400, "This channel is not available")
+    }
+
+    const existingSubscription = await Subscription.findOne({subscriber: req.user._id, channel: req.params.channelId})
+
+    if(!existingSubscription) {
+        throw new ApiError(400, "You did not have subscription of this channel at all")
+    }
+
+    await Subscription.deleteOne(existingSubscription._id)
+
+    if(channel?.subscriberCount && channel?.subscriberCount > 0) {
+        channel.subscriberCount -= 1
+    } else {
+        channel.subscriberCount = 0
+    }
+    await channel.save()
+
+    return res.status(201).json(new ApiResponse(201, "Unsubscribed successfully", existingSubscription))
+})
+
+export {subscribeChannel, unsubscribeChannel}
