@@ -81,7 +81,7 @@ const loginUser = asyncHandler( async (req,res)=>{
     const loggedInUser = await User.findById(user._id).select("-password -refreshToken")
     const options = {
         httpOnly: true,
-        secure: true
+        secure: true,
     }
     res.status(200)
         .cookie("accessToken", accessToken, options)
@@ -331,6 +331,11 @@ const getWatchHistory = asyncHandler(async (req, res)=>{
     return res.status(200).json(new ApiResponse(200,"Watch History fetched successfully", user[0]))
 })
 
+const getUsers = asyncHandler(async (req, res)=>{
+    const users = await User.find()
+    return res.status(200).json(new ApiResponse(200,"Watch History fetched successfully", users))
+})
+
 export {
     registerUser,
     loginUser,
@@ -342,5 +347,6 @@ export {
     updateUserAvatar,
     updateUserCoverImage,
     getUserChannelProfile,
-    getWatchHistory
+    getWatchHistory,
+    getUsers
 }
