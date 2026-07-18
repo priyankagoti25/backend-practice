@@ -1,9 +1,9 @@
-import dotenv from "dotenv"
+import dotenv from "dotenv";
 import connectDB from "./db/index.js";
-import {PORT} from "./constants.js";
-import {app} from "./app.js";
+import { PORT } from "./constants.js";
+import { app } from "./app.js";
 
-dotenv.config({path: './.env'})
+dotenv.config({ path: "./.env" });
 
 // connectDB()
 //     .then(async ()=>{
@@ -14,24 +14,16 @@ dotenv.config({path: './.env'})
 //     .catch((err)=>{
 //         console.log("MongoDB connection Failed ", err)
 //     })
-
+//I am adding this line to check docpulse
 const startServer = async () => {
-    await connectDB();
+  await connectDB();
 
-    app.listen(PORT, () => {
-        console.log(`🚀 Server running at http://localhost:${PORT}`);
-    });
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running at http://localhost:${PORT}`);
+  });
 };
 
 await startServer();
-
-
-
-
-
-
-
-
 
 //Not recommended way of listening and db connection
 
