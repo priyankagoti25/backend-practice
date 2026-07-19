@@ -6,7 +6,6 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
-//I am adding this line to check docpulse again with ngrok live url
 
 const generateAccessAndRefreshToken = async (userId) => {
   try {
@@ -76,13 +75,11 @@ const loginUser = asyncHandler(async (req, res) => {
       );
   }
   if (!password) {
-    res
-      .status(400)
-      .json(
-        new ApiError(400, "password is required", {
-          password: "password is required",
-        })
-      );
+    res.status(400).json(
+      new ApiError(400, "password is required", {
+        password: "password is required",
+      })
+    );
   }
 
   const user = await User.findOne({ email: email.toLowerCase() });
