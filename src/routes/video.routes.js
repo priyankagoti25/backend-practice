@@ -1,27 +1,40 @@
-import {Router} from "express";
-import {uploadVideo, getVideosList, increaseViews, updateVideo, publishVideo, getVideoById, getVideosListByChannel} from "../controllers/video.controller.js";
-import {upload} from "../middlewares/multer.middleware.js";
-import {verifyJWT} from "../middlewares/auth.middleware.js";
-const videoRoutes = Router()
+import { Router } from "express";
+import {
+  uploadVideo,
+  getVideosList,
+  increaseViews,
+  updateVideo,
+  publishVideo,
+  getVideoById,
+  getVideosListByChannel,
+} from "../controllers/video.controller.js";
+import { upload } from "../middlewares/multer.middleware.js";
+import { verifyJWT } from "../middlewares/auth.middleware.js";
+const videoRoutes = Router();
+//I am adding this line to check docpulse again with ngrok live url
 
-videoRoutes.route('/upload').post(
-    verifyJWT,
-    upload.fields([
-    {name: 'videoFile', length:1},
-    {name: 'thumbnail', length:1}
-]),uploadVideo)
+videoRoutes.route("/upload").post(
+  verifyJWT,
+  upload.fields([
+    { name: "videoFile", length: 1 },
+    { name: "thumbnail", length: 1 },
+  ]),
+  uploadVideo
+);
 
-videoRoutes.route('/update/:id').patch(
-    verifyJWT,
-    upload.fields([
-        {name: 'videoFile', length:1},
-        {name: 'thumbnail', length:1}
-    ]),updateVideo)
+videoRoutes.route("/update/:id").patch(
+  verifyJWT,
+  upload.fields([
+    { name: "videoFile", length: 1 },
+    { name: "thumbnail", length: 1 },
+  ]),
+  updateVideo
+);
 
-videoRoutes.route('/publish/:id').get(verifyJWT,publishVideo)
-videoRoutes.route('/list').get(getVideosList)
-videoRoutes.route('/increase-views/:id').post(increaseViews)
-videoRoutes.route('/:id').get(getVideoById)
-videoRoutes.route('/list-by-channel/:channelId').get(getVideosListByChannel)
+videoRoutes.route("/publish/:id").get(verifyJWT, publishVideo);
+videoRoutes.route("/list").get(getVideosList);
+videoRoutes.route("/increase-views/:id").post(increaseViews);
+videoRoutes.route("/:id").get(getVideoById);
+videoRoutes.route("/list-by-channel/:channelId").get(getVideosListByChannel);
 
-export default videoRoutes
+export default videoRoutes;
