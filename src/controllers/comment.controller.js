@@ -4,7 +4,6 @@ import { ApiError } from "../utils/ApiError.js";
 import { Comment } from "../models/comment.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import mongoose from "mongoose";
-//I am adding this line to check docpulse again with ngrok live url
 
 const addComment = asyncHandler(async (req, res) => {
   const video = await Video.findById(req.params.videoId);

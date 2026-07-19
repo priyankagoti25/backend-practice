@@ -6,7 +6,6 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
-//I am adding this line to check docpulse again with ngrok live url
 
 const generateAccessAndRefreshToken = async (userId) => {
   try {
