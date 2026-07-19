@@ -11,7 +11,6 @@ import {
 import { upload } from "../middlewares/multer.middleware.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 const videoRoutes = Router();
-//I am adding this line to check docpulse again with ngrok live url
 
 videoRoutes.route("/upload").post(
   verifyJWT,

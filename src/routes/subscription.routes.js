@@ -4,7 +4,6 @@ import {
   unsubscribeChannel,
 } from "../controllers/subscription.controller.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
-//I am adding this line to check docpulse again with ngrok live url
 
 const subscriptionRoutes = Router();
 

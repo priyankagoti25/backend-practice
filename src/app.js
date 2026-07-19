@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 const app = express();
-//I am adding this line to check docpulse again with ngrok live url
 
 app.use(
   cors({
