@@ -6,6 +6,7 @@ import {
   getComments,
   deleteComment,
 } from "../controllers/comment.controller.js";
+//I am adding this line to check docpulse again with ngrok live url
 
 const commentRoutes = Router();
 commentRoutes.route("/create/:videoId").post(verifyJWT, addComment);
